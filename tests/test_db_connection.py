@@ -12,4 +12,4 @@ def test_insert_and_query_dummy():
         assert result.message == "Hello test DB!"
     finally:
         db.close()
-        SessionLocal.remove()
+        # SessionLocal.remove()
