@@ -1,4 +1,4 @@
-Shopify Centralized Database Project
+**Shopify Centralized Database Project**
 
 This project is a centralized inventory management system built to serve as an internal tool for syncing and organizing data from a Shopify store. It is designed to eventually become a stand-alone solution for small e-commerce vendors to easily manage their product catalogs, orders, and customers across platforms.
 
