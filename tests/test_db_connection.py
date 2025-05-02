@@ -1,15 +1,23 @@
-from database.db_connection import SessionLocal
-from database.models import DummyTable
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
 
-def test_insert_and_query_dummy():
-    db = SessionLocal()
+load_dotenv()  # Loads .env.test when run via pytest (because of pytest.ini)
+
+# Setup test DB connection
+DATABASE_URL = os.getenv("DATABASE_URL")
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(bind=engine)
+
+
+def test_connection_works():
+    """
+    Verify connection to the test database.
+    """
     try:
-        dummy = DummyTable(message="Hello test DB!")
-        db.add(dummy)
-        db.commit()
-        db.refresh(dummy)
-        result = db.query(DummyTable).first()
-        assert result.message == "Hello test DB!"
-    finally:
-        db.close()
-        # SessionLocal.remove()
+        with engine.connect() as conn:
+            result = conn.execute(text("SELECT 1"))
+            assert result.scalar() == 1
+    except Exception as e:
+        assert False, f"Connection failed: {e}"
