@@ -29,3 +29,5 @@ def test_dummy_table_creation():
         assert 'dummy_table' in inspector.get_table_names()
     except Exception as e:
         assert False, f"Table creation failed: {e}"
+    finally:
+        Base.metadata.drop_all(engine)
